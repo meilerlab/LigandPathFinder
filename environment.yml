@@ -1,0 +1,35 @@
+# Conda environment for LigPF (lpf_coarse_path.py / lpf_trajectory.py).
+#
+# Only two third-party packages are actually imported anywhere in lpf/*.py:
+# numpy and scipy (scipy.interpolate for path splining, scipy.spatial.transform
+# for optimal-alignment RMSD). Everything else used (os, argparse, glob,
+# subprocess, shutil, datetime, time, copy, enum, json, pickle, tempfile) is
+# Python standard library.
+#
+# Version floors are the minimum known to work, left otherwise unpinned:
+#   - scipy>=1.6   — scipy.spatial.transform.Rotation.align_vectors was added in 1.6.0
+#   - numpy>=1.19  — everything used (np.array/linalg.norm/argsort/clip/cross/...) is
+#                    long-stable API; 1.19 is a conservative, widely-available floor
+#   - python>=3.8  — f-strings only require 3.6+, but 3.8 avoids EOL interpreters
+#
+# Not a conda package here, but required at runtime:
+#   - a Rosetta `rosetta_scripts` binary (path set via config key "rosetta")
+#   - an MPI launcher (e.g. mpirun) on PATH, only if rosetta_scripts.n_proc > 1
+#
+# Two external command-line tools are shelled out to (via util.run_tool) and are
+# therefore listed as dependencies:
+#   - gzip  — called after EVERY Rosetta call to compress the decoy PDBs in
+#             results/ and stats/. Not optional.
+#   - zip   — called only when output.archive is enabled, to pack each finished
+#             window/node directory (`zip -rm`).
+# Both are present on essentially every Linux system; they are pinned here so a
+# bare conda environment is self-sufficient.
+name: ligpf
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.8
+  - numpy>=1.19
+  - scipy>=1.6
+  - gzip
+  - zip

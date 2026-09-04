@@ -1,0 +1,36 @@
+<ROSETTASCRIPTS>
+
+		<SCOREFXNS>
+                        <ScoreFunction name="ligand_soft_rep" weights="ligand_soft_rep">
+                        </ScoreFunction>
+                        <ScoreFunction name="hard_rep" weights="ligand">
+                        </ScoreFunction>
+		</SCOREFXNS>
+
+                <LIGAND_AREAS>
+                        <LigandArea name="inhibitor_dock_sc" chain="X" cutoff="8.0" add_nbr_radius="true" all_atom_mode="false" minimize_ligand="0" />
+                        <LigandArea name="inhibitor_final_sc" chain="X" cutoff="10.0" add_nbr_radius="true" all_atom_mode="false" minimize_ligand="0" />
+			<LigandArea name="inhibitor_final_bb" chain="X" cutoff="12.0" add_nbr_radius="false" all_atom_mode="true" minimize_ligand="0" Calpha_restraints="0.1" />
+                </LIGAND_AREAS>
+
+                <INTERFACE_BUILDERS>
+                        <InterfaceBuilder name="side_chain_for_docking" ligand_areas="inhibitor_dock_sc"/>
+                        <InterfaceBuilder name="side_chain_for_final" ligand_areas="inhibitor_final_sc"/>
+                        <InterfaceBuilder name="backbone" ligand_areas="inhibitor_final_bb" extension_window="3"/>
+                </INTERFACE_BUILDERS>
+
+                <MOVEMAP_BUILDERS>
+                        <MoveMapBuilder name="docking" sc_interface="side_chain_for_docking" />
+                        <MoveMapBuilder name="final" sc_interface="side_chain_for_final" bb_interface="backbone" minimize_water="true"/>
+
+                </MOVEMAP_BUILDERS>
+
+		<MOVERS>
+                        <InterfaceScoreCalculator name="add_scores" chains="X" scorefxn="hard_rep"/> 
+		</MOVERS>
+
+		<PROTOCOLS>
+			<Add mover_name="add_scores"/>
+		</PROTOCOLS>
+
+</ROSETTASCRIPTS>

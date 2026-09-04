@@ -1,0 +1,97 @@
+{
+  "rosetta":       "/path/to/rosetta_scripts.static.linuxgccrelease",
+  "general_files": "./files",
+  "extra_files":   [],
+
+  "input": {
+    "guide_path":        "./path",
+    "ligand_files":      "./ligand",
+    "ligand_chain":      "X",
+
+    "start_pdb":         "./start.pdb",
+
+    "start_protein_pdb": "./protein.pdb",
+    "start_ligand_pdb":  "./ligand_pose.pdb",
+
+    "header_pdb":        "./header.pdb"
+  },
+
+  "parameters": {
+    "step":                             0.33,
+
+    "smooth":                           0.5,
+
+    "conformer_subsampling":            true,
+    "conformer_rmsd_threshold":         1.5,
+
+    "rmsd_constraint":                  true,
+    "rmsd_constraint_type":             "bounded",
+    "rmsd_constraint_bound":            0.5,
+    "rmsd_constraint_sd":               0.66,
+    "rmsd_constraint_hydrogens":        false,
+
+    "in_plane_dev_constraint":          true,
+    "ipdc_type":                        "bounded",
+    "ipdc_d0":                          1.25,
+    "ipdc_sd":                          0.5,
+
+    "plane_constraint_point_extent":    10,
+    "plane_constraint_sd":              0.02,
+
+    "next_angle_constraint":            true,
+    "next_angle_constraint_type":       "bounded",
+    "next_angle_constraint_bound":      1.57,
+    "next_angle_constraint_sd":         0.25,
+
+    "angle_constraint":                 true,
+    "angle_constraint_type":            "bounded",
+    "angle_constraint_bound":           2.65,
+    "angle_constraint_sd":              0.35,
+
+    "end_padding":                      5,
+
+    "noise":                            true,
+    "skip":                             false,
+    "memory_mode":                      false,
+
+    "run_stats":                        false,
+
+    "select_best_by":                   "total_score",
+    "select_next_by":                   "total_score",
+    "outlier_rmsd":                     2.0,
+
+    "dock_zero":                        false,
+
+    "endpoint_jitter":                  true,
+    "endpoint_jitter_radius":           5.0
+  },
+
+  "rosetta_scripts": {
+    "options":             "./files/options",
+
+    "protocol_zero":       "./files/zero_minimize.xml",
+    "protocol_main":       "./files/main_standard.xml",
+    "protocol_stats":      "./files/stats.xml",
+
+    "protocol":            "./files/coarsepath.xml",
+
+    "protocol_zero_dock":  "./files/zero_dock.xml",
+
+    "nstruct_main":        10,
+    "nstruct_stats":       10,
+    "nstruct":             10,
+    "nstruct_zero":        20,
+
+    "n_proc":              1,
+    "mpi_launcher":        "mpirun"
+  },
+
+  "output": {
+    "path":                "./",
+    "verbose":             true,
+    "archive":             false,
+    "checkpoint_interval": 10,
+    "use_tmp":             false,
+    "tmp_path":            ""
+  }
+}

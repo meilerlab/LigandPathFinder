@@ -1,0 +1,41 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# --- Editors / OS ---
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/
+
+# --- Finished runs -------------------------------------------------------
+# Every LPF run writes its output into the directory it is launched from.
+# The run INPUTS (run.json, start.pdb, header.pdb, path, ligand/, files/) are
+# tracked; the outputs are not — they are hundreds of MB of decoy archives and
+# trajectory PDBs that would be baked into git history forever.
+#
+# Regenerate them by following demo/tutorial.md, or ask the authors for the
+# reference run data.
+demo/coarse_path/run/
+demo/trajectory/run/
+examples/coarse_path/run/
+examples/trajectory/run/
+
+# Output of a run launched anywhere else in the tree
+window_*/
+window_*.zip
+checkpoint.pkl
+checkpoint_meta.json
+stats.pkl
+score.sc
+run.stdout
+run.stderr
+task.log
+task.err

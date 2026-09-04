@@ -1,0 +1,49 @@
+{
+  "rosetta": "<path_to>/rosetta_scripts.static.linuxgccrelease",
+  "general_files": "../files",
+  "extra_files": [],
+  "input": {
+    "guide_path": "../path",
+    "ligand_files": "../ligand",
+    "ligand_chain": "X",
+    "start_pdb": "../start.pdb",
+    "header_pdb": "../header.pdb"
+  },
+  "parameters": {
+    "step": 2.0,
+    "conformer_subsampling": false,
+    "rmsd_constraint": true,
+    "rmsd_constraint_type": "harmonic",
+    "rmsd_constraint_sd": 1.0,
+    "rmsd_constraint_hydrogens": false,
+    "in_plane_dev_constraint": true,
+    "ipdc_type": "bounded",
+    "plane_constraint_sd": 0.02,
+    "plane_constraint_point_extent": 10,
+    "angle_constraint": true,
+    "angle_constraint_type": "bounded",
+    "angle_constraint_bound": 2.65,
+    "angle_constraint_sd": 0.35,
+    "next_angle_constraint": true,
+    "next_angle_constraint_type": "bounded",
+    "next_angle_constraint_bound": 1.57,
+    "next_angle_constraint_sd": 0.25,
+    "memory_mode": false,
+    "select_best_by": "total_score",
+    "endpoint_jitter": false,
+    "endpoint_jitter_radius": 5.0,
+    "dock_zero": false
+  },
+  "rosetta_scripts": {
+    "options": "../files/options",
+    "protocol": "../files/coarsepath.xml",
+    "nstruct": 10,
+    "n_proc": 1,
+    "mpi_launcher": "mpirun"
+  },
+  "output": {
+    "path": "./",
+    "archive": false,
+    "verbose": false
+  }
+}

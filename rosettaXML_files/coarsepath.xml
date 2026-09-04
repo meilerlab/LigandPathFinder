@@ -1,0 +1,56 @@
+<ROSETTASCRIPTS>
+
+		<SCOREFXNS>
+                        <ScoreFunction name="ligand_soft_rep" weights="ligand_soft_rep">
+                        </ScoreFunction>
+		</SCOREFXNS>
+
+		<TASKOPERATIONS>
+			<ReadResfile name="rrf" filename="lig.resfile"/>
+		</TASKOPERATIONS>
+
+                <LIGAND_AREAS>
+                        <LigandArea name="inhibitor_dock_sc" chain="X" cutoff="6.0" add_nbr_radius="true" all_atom_mode="false" minimize_ligand="0" />
+                        <LigandArea name="inhibitor_final_sc" chain="X" cutoff="6.0" add_nbr_radius="true" all_atom_mode="false" minimize_ligand="0" />
+			<LigandArea name="inhibitor_final_bb" chain="X" cutoff="7.0" add_nbr_radius="false" all_atom_mode="true" minimize_ligand="0" Calpha_restraints="0.1" />
+                </LIGAND_AREAS>
+
+                <INTERFACE_BUILDERS>
+                        <InterfaceBuilder name="side_chain_for_docking" ligand_areas="inhibitor_dock_sc"/>
+                        <InterfaceBuilder name="side_chain_for_final" ligand_areas="inhibitor_final_sc"/>
+                        <InterfaceBuilder name="backbone" ligand_areas="inhibitor_final_bb" extension_window="3"/>
+                </INTERFACE_BUILDERS>
+
+                <MOVEMAP_BUILDERS>
+                        <MoveMapBuilder name="docking" sc_interface="side_chain_for_docking" />
+                        <MoveMapBuilder name="final" sc_interface="side_chain_for_final" bb_interface="backbone" minimize_water="true"/>
+
+                </MOVEMAP_BUILDERS>
+
+	        <SCORINGGRIDS ligand_chain="X" width="20">
+    			<ClassicGrid grid_name="vdw" weight="1.0"/>
+	        </SCORINGGRIDS>
+
+		<MOVERS>
+			<Transform name="transform" chain="X" box_size="10" move_distance="0.1" angle="5" cycles="100" repeats="1" temperature="5" initial_perturb="0.1" initial_angle_perturb="90" cst_fa_file="constraints.cst" cst_fa_weight="3.0" use_constraints="true"/>
+			<StartFrom name="start" chain="X" use_nbr="1">
+$replace$
+			</StartFrom>
+                        <HighResDocker name="high_res_docker" cycles="9" repack_every_Nth="3" scorefxn="ligand_soft_rep" movemap_builder="docking" />
+                        <ConstraintSetMover name="add_constraints" add_constraints="1" cst_file="constraints.cst" />
+                        <ClearConstraintsMover name="clear_constraints" />
+			<FinalMinimizer name="final" scorefxn="ligand_soft_rep" movemap_builder="final" />
+                        <InterfaceScoreCalculator name="add_scores" chains="X" scorefxn="ligand_soft_rep"/> 
+		</MOVERS>
+
+		<PROTOCOLS>
+			<Add mover_name="start"/>
+			<Add mover_name="add_constraints"/>
+			<Add mover_name="transform"/>
+			<Add mover_name="high_res_docker"/>
+			<Add mover_name="final"/>
+			<Add mover_name="clear_constraints"/>
+			<Add mover_name="add_scores"/>
+		</PROTOCOLS>
+
+</ROSETTASCRIPTS>
