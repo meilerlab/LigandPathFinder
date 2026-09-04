@@ -15,6 +15,7 @@ from copy import copy as copyobj
 from util import (
     read_config,
     read_guide_path,
+    check_external_tools,
     check_protocol_chain,
     run_rosetta,
     run_tool,
@@ -629,6 +630,7 @@ class CoarsePathRunner:
         if not os.path.isfile(vrt_params):
             raise FileNotFoundError(f"VRT1.params not found: {vrt_params}")
 
+        check_external_tools(self.config['output'].get('archive', False))
         check_protocol_chain(
             [self.config['rosetta_scripts']['protocol'],
              self.config['rosetta_scripts'].get('protocol_zero_dock')],

@@ -125,6 +125,27 @@ def run_tool(argv, cwd=None):
     return proc
 
 
+def check_external_tools(archive_enabled):
+    """Fail fast if a required command-line tool is missing.
+
+    Both are shelled out to mid-run: gzip after every Rosetta call, zip only when
+    output.archive is on. Checking here turns a failure 35 minutes into a run
+    (with `zip -rm` potentially having already deleted its inputs) into an
+    immediate, obvious error.
+    """
+    from shutil import which
+    required = [('gzip', 'compressing decoy PDBs after every Rosetta call')]
+    if archive_enabled:
+        required.append(('zip', 'output.archive is enabled'))
+    missing = [(tool, why) for tool, why in required if which(tool) is None]
+    if missing:
+        raise FileNotFoundError(
+            "Required command-line tool(s) not found on PATH:\n"
+            + '\n'.join(f"  {tool}  — needed for: {why}" for tool, why in missing)
+            + "\nInstall them (they are in environment.yml) or disable output.archive."
+        )
+
+
 def check_protocol_chain(protocol_paths, ligand_chain):
     """Warn if a RosettaScripts protocol never references `ligand_chain`.
 
