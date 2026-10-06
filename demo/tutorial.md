@@ -36,9 +36,10 @@ demo/
 > reproduce them as described in §2.2 and §3; the numbers quoted in this
 > tutorial come from exactly those commands.
 >
-> If you would rather read the published results than recompute them, the
-> reference runs are archived on Zenodo — [`10.5281/zenodo.23183178`](https://doi.org/10.5281/zenodo.23183178) —
-> and unpack directly into these `run/` folders.
+> If you would rather read the published results than recompute them, they are
+> archived on Zenodo — [`10.5281/zenodo.23183178`](https://doi.org/10.5281/zenodo.23183178). Inside
+> `LigPF2026.zip`, `zenodo/demo/coarse_path/run/` and
+> `zenodo/demo/trajectory/run/` are exactly the two `run/` folders below.
 
 Please note any parts that could benefit from additional automation and send
 feature requests to the developers.
@@ -604,7 +605,8 @@ pool `interface_scores.txt` over many replicates (§4).
 > **Reproducing this.** The figures and numbers above are the actual output of
 > the two `run.json` files as given, against the current code (`nstruct 10`, one
 > core: coarse ~5 min, trajectory ~35 min). The runs themselves are not shipped —
-> reproduce them with the commands in §2.2 and §3, or download them from Zenodo
+> reproduce them with the commands in §2.2 and §3, or take them from
+> `zenodo/demo/` in the Zenodo archive
 > ([`10.5281/zenodo.23183178`](https://doi.org/10.5281/zenodo.23183178)), then regenerate the figure with a
 > two-line script (`np.loadtxt('interface_scores.txt')`). Both stages are
 > stochastic, so expect small differences from the profile shown.

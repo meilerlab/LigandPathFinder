@@ -21,8 +21,8 @@ venv/
 # tracked; the outputs are not — they are hundreds of MB of decoy archives and
 # trajectory PDBs that would be baked into git history forever.
 #
-# Reproduce them by following demo/tutorial.md, or download the reference runs
-# archived on Zenodo: https://doi.org/10.5281/zenodo.23183178
+# Reproduce them by following demo/tutorial.md, or take them from zenodo/demo/
+# in the archive deposited at https://doi.org/10.5281/zenodo.23183178
 demo/coarse_path/run/
 demo/trajectory/run/
 examples/coarse_path/run/
