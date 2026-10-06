@@ -85,6 +85,10 @@ to your run as `files/` makes it work as-is.
 > trajectory PDBs); they are `.gitignore`d. All *inputs* are here, so both the
 > demo and the examples can be reproduced from a fresh clone by following the
 > tutorial.
+>
+> The reference runs themselves are archived on Zenodo:
+> [`10.5281/zenodo.23183178`](https://doi.org/10.5281/zenodo.23183178). Unpack them into the matching
+> `run/` folders to inspect the published results without recomputing them.
 
 ## Repository layout
 
